@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -52,13 +53,14 @@ public class TicketController {
 
     @RequestMapping(value = "/tickets/edit/{id}", method = RequestMethod.GET)
     public String editTicket(Model model,@PathVariable("id") Long id) {
+        model.addAttribute("ticket", ticketService.findById(id)); //added code GQuintana
         // Code here
-        return "redirect:/"; //Remove this line
+        return "tickets/storeTicket"; //modified
     }
 
     @RequestMapping(value = "/tickets/delete/{id}", method = RequestMethod.GET)
     public String deleteTicket(@PathVariable("id") Long id) {
-        // Code here
+        ticketService.deleteById(id); // added code GQuintana
         return "redirect:/";
     }
 
